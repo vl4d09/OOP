@@ -14,6 +14,21 @@ class Student {
     public Object getEmail() {
         return null;
     }
+
+    public void setGraduated(boolean b) {
+    }
+
+    public boolean isGraduated() {
+        return false;
+    }
+
+    public String getFirstName() {
+        return null;
+    }
+
+    public String getLastName() {
+        return null;
+    }
 }
 
 class Faculty {
