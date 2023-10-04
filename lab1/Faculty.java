@@ -33,6 +33,7 @@ public class Faculty {
     public List<Student> getStudents() {
         return students;
     }
+    
 
     public void addStudent(Student student) {
         students.add(student);
@@ -45,18 +46,12 @@ public class Faculty {
     public void displayEnrolledStudents() {
         for (Student student : students) {
             if (!student.isGraduated()) {
-                System.out.println(student.getFirstName() + " " + student.getLastName());
+                System.out.println("First Name: " + student.getFirstName() + ", Last Name: " + student.getLastName());
             }
         }
     }
+    
 
-    public void displayGraduates() {
-        for (Student student : students) {
-            if (student.isGraduated()) {
-                System.out.println(student.getFirstName() + " " + student.getLastName());
-            }
-        }
-    }
 
     public boolean hasStudent(Student student) {
         return students.contains(student);
@@ -68,5 +63,14 @@ public class Faculty {
 
     public void setStudyField(StudyField studyField) {
         this.studyField = studyField;
+    }
+
+    public void displayGraduates() {
+        System.out.println("Graduates in " + getName() + ":");
+        for (Student student : students) {
+            if (student.isGraduated()) {
+                System.out.println(student.getFirstName() + " " + student.getLastName() + " (" + student.getEmail() + ")");
+            }
+        }
     }
 }

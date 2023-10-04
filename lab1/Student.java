@@ -1,23 +1,21 @@
 import java.util.Date;
-
 public class Student {
     private String firstName;
     private String lastName;
     private String email;
     private Date enrollmentDate;
     private Date dateOfBirth;
-    private boolean isGraduated;
+    private boolean graduated;
 
-    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth) {
+    public Student(String firstName, String lastName, String email, Date enrollmentDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.enrollmentDate = enrollmentDate;
-        this.dateOfBirth = dateOfBirth;
-        this.isGraduated = false;
+        this.graduated = false; // By default, a student is not graduated
     }
-
-    // Getter and Setter methods for firstName, lastName, email, enrollmentDate, and dateOfBirth
+    
+    
 
     public String getFirstName() {
         return firstName;
@@ -59,17 +57,17 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    // Getter and Setter methods for isGraduated
-
+   
     public boolean isGraduated() {
-        return isGraduated;
+        return graduated;
     }
 
     public void setGraduated(boolean graduated) {
-        isGraduated = graduated;
+        this.graduated = graduated;
     }
 
     public Object getUniqueId() {
         return null;
     }
 }
+
