@@ -7,6 +7,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         List<Faculty> faculties = new ArrayList<>();
 
+        // Load data from a save file 
+        List<Faculty> loadedFaculties = SaveManager.loadData();
+        if (loadedFaculties != null) {
+            faculties = loadedFaculties;
+        }
+
         while (true) {
             System.out.println("Choose an option:");
             System.out.println("1. Faculty Operations");
@@ -19,6 +25,8 @@ public class Main {
             } else if (choice.equals("2")) {
                 GeneralOperations.performGeneralOperations(faculties, scanner);
             } else if (choice.equals("q")) {
+                // Save data to a save file before quitting
+                SaveManager.saveData(faculties);
                 break;
             } else {
                 System.out.println("Invalid choice. Please try again.");
