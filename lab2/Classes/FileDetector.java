@@ -57,7 +57,7 @@ public class FileDetector extends Detector {
             }
 
         snapshotTime = System.currentTimeMillis();}
-        System.out.println("Created Snapshot at: " + DateHelper.formatDate(snapshotTime));
+        System.out.println("Created Snapshot at: " + DateHelp.formatDate(snapshotTime));
     }
 
     public void info(String fileName) {
@@ -73,7 +73,7 @@ public class FileDetector extends Detector {
 
         scanDirectory();
 
-        System.out.println("Created Snapshot at: " + DateHelper.formatDate(snapshotTime));
+        System.out.println("Created Snapshot at: " + DateHelp.formatDate(snapshotTime));
         for (String message : changeMessages) {
             System.out.println(message);
         }

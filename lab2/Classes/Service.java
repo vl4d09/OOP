@@ -20,13 +20,13 @@ public class Service {
             System.out.println("File Name: " + file.getName());
             try {
                 BasicFileAttributes attrs = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                System.out.print("Created Date: " + DateHelper.formatDate(attrs.creationTime().toMillis()));
+                System.out.print("Created Date: " + DateHelp.formatDate(attrs.creationTime().toMillis()));
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Error fetching created date.");
             }
 
-            System.out.println("Updated Date: " + DateHelper.formatDate(file.lastModified()));
+            System.out.println("Updated Date: " + DateHelp.formatDate(file.lastModified()));
 
             String extension = getFileExtension(file);
             System.out.println("File Extension: " + extension);
