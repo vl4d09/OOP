@@ -2,25 +2,29 @@
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.*;
+import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.*;
 
 public class Snapshot {
     private Map<String, FileInfo> files;
-    private Map<String, Long> originalModifiedTimes;
+    private Map<String, Object> originalModifiedTimes;
 
-    public Snapshot() {
-        files = new HashMap<>();
-        originalModifiedTimes = new HashMap<>();
-    }
+
 
     public void commit() {
         originalModifiedTimes.clear();
         for (FileInfo fileInfo : files.values()) {
             originalModifiedTimes.put(fileInfo.getName(), fileInfo.getLastModifiedTime());
         }
-        System.out.println("Created Snapshot at: " + getCurrentTime());
+        FileTime snapshot = FileTime.from(Instant.now());
+         System.out.println("Created2323 Snapshot at: " + snapshot);
+        saveCommitInfo(snapshot); // Save commit info after each commit
+   //  System.out.println(System.currentTimeMillis());
+      //  System.out.println("Created Snapshot at: " + getCurrentTime());
     }
+    
 
     public void info(String filename) {
         if (files.containsKey(filename)) {
@@ -46,35 +50,43 @@ public class Snapshot {
     }
 
     public void status() {
-        for (String filename : files.keySet()) {
-            FileInfo fileInfo = files.get(filename);
-            String status = "unchanged";
-            if (originalModifiedTimes.containsKey(filename) &&
-                    fileInfo.getLastModifiedTime() > originalModifiedTimes.get(filename)) {
-                status = "modified since last snapshot";
-            }
-            String currentTimeStatus = "unchanged";
-            if (fileInfo.getLastModifiedTime() > System.currentTimeMillis() - 1000) {
-                currentTimeStatus = "modified since current time";
-            }
-            System.out.println("File: " + fileInfo.getName() + ", Status: " + status + ", Current Time Status: " + currentTimeStatus);
+        if (originalModifiedTimes.isEmpty()) {
+            System.out.println("There's no commit information. You have to execute the commit command.");
+            return;
+        }
+
+        System.out.println("Commit information:");
+        for (Map.Entry<String, Object> entry : originalModifiedTimes.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
 
+    public void saveCommitInfo(FileTime com) {
+        
+        System.out.println(com);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\VLAD'S LAPTOP\\Desktop\\OOP\\lab2\\Classes"))) {
+            writer.write(com.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+
+    
     private String formatDate(long time) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(new Date(time));
     }
 
-    private String getCurrentTime() {
-        return formatDate(System.currentTimeMillis());
-    }
+
 
     public static void main(String[] args) {
         Snapshot snapshot = new Snapshot();
 
         try {
-            Path directoryPath = Paths.get("C:\\Users\\VLAD'S LAPTOP\\Desktop\\OOP\\lab2");
+            Path directoryPath = Paths.get("C:\\Users\\VLAD'S LAPTOP\\Desktop\\OOP\\lab2\\Classes\\commit_info.txt");
             Files.walk(directoryPath)
                     .filter(Files::isRegularFile)
                     .forEach(file -> {

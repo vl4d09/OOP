@@ -18,3 +18,4 @@ class Car:
             print("The car is moving")
         else:
             print("The car is not moving")
+    def test(self):
